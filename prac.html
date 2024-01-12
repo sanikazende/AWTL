@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Practical</title>
+        <style>
+            body {
+                margin: 4rem;
+            }
+
+            #buttons {
+                margin-bottom: 20px;
+            }
+
+            label {
+                display: block;
+                margin-top: 10px;
+            }
+
+            input,
+            textarea {
+                width: 300px;
+                padding: 8px;
+                margin-top: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            button {
+                margin: 10px;
+                padding: 8px 16px;
+                background-color: #692b42;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #250118;
+            }
+
+            table {
+                border-collapse: collapse;
+                margin-bottom: 20px;
+                width: 100%;
+            }
+
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #cb6e95;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 style="color:rgb(18, 89, 89)">Register</h1>
+        <div id="buttons">
+            <label>Name :</label>
+            <input type="text" id="input" placeholder="enter product's name">
+            <br>
+            <br>
+            <label> Quantity :</label>
+            <input type="number" id="qtinput" placeholder="enter your quantity">
+            <button onclick="addData()">Add to list</button>
+        </div>
+
+        <table id="optable">
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+        </table>
+
+        <script>
+            function addData() {
+                let name = document.getElementById("input").value;
+                let quantity = document.getElementById("qtinput").value;
+
+                // get table
+                let table = document.getElementById("optable");
+                let newRow = table.insertRow(table.rows.length);
+
+                // data into cells
+                newRow.insertCell(0).innerHTML = name;
+                newRow.insertCell(1).innerHTML = quantity;
+                newRow.insertCell(2).innerHTML =
+                    '<button onclick="editData(this)">Edit</button> ' +
+                    '<button onclick="deleteData(this)">Delete</button>';
+
+                // clear inputs
+                clearInputs();
+            }
+
+            function editData(button) {
+                let row = button.parentNode.parentNode;
+
+                let nameCell = row.cells[0];
+                let quantityCell = row.cells[1];
+
+                // prompt to update value
+                let nameInput = prompt("Enter the updated name:", nameCell.innerHTML);
+                let quantityInput = prompt("Enter the updated quantity:", quantityCell.innerHTML);
+
+                nameCell.innerHTML = nameInput;
+                quantityCell.innerHTML = quantityInput;
+            }
+
+            function deleteData(button) {
+                // Get the parent row of the clicked button
+                let row = button.parentNode.parentNode;
+
+                // Remove the row from the table
+                row.parentNode.removeChild(row);
+            }
+
+            function clearInputs() {
+                // Clear input fields
+                document.getElementById("input").value = "";
+                document.getElementById("qtinput").value = "";
+            }
+        </script>
+    </body>
+</html>
